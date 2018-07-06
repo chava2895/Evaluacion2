@@ -1,0 +1,27 @@
+﻿@model Blog.Models.Post
+@{
+    ViewBag.Title = "Delete";
+}
+
+<div class="container">
+    <h2 style="text-align:center">administración</h2>
+    <h3>Eliminar estudiante</h3>
+    @using (Html.BeginForm("Delete", "Blog", "post"))
+    {
+        @Html.HiddenFor(model => model.Title)
+        @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.IdCategory)
+        @Html.HiddenFor(model => model.Date)
+        @Html.HiddenFor(model=> model.Content)
+
+        <div class="form-group">
+            @Html.Label("Seguro que deseas eliminar la publicacion: " + Model.Title + " estudiante con matricula " + Model.Id)
+
+        </div>
+        <div class="form-group">
+            @Html.ActionLink("Cancelar", "Index")
+            <input class="btn btn-primary btn-default " type="submit" value="      si      ">
+
+        </div>
+    }
+</div>

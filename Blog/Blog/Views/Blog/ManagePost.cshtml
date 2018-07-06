@@ -1,0 +1,31 @@
+﻿@model Blog.Models.PostVM
+@{
+    ViewBag.Title = "ManagePost";
+}
+<div class="container">
+    <h2 style="text-align:center">Publicar Post</h2>
+    @using (Html.BeginForm("ManagePost", "Blog", "post"))
+    {
+        @Html.HiddenFor(model => model.post.Id)
+        <div class="form-group">
+            @Html.LabelFor(model => model.post.Title)
+            @Html.TextBoxFor(model => model.post.Title, null, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.post.Title)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.post.IdCategory)
+            @Html.DropDownListFor(model => model.post.IdCategory, new SelectList(Model.Categories, "Id", "Name"), new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.post.IdCategory)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.post.Content)
+            @Html.TextAreaFor(model => model.post.Content, 5, 5, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.post.Content)
+        </div>
+        @Html.HiddenFor(model => model.post.Date)
+        <div class="form-group">
+            @Html.ActionLink("Cancelar", "Index")
+            <input class=" btn btn-primary" type="submit" value="Publicar">
+        </div>
+    }
+</div>

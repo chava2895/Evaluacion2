@@ -1,0 +1,68 @@
+﻿@model Blog.Models.DetailVM
+@{
+    ViewBag.Title = "Detail";
+}
+<div class="container ">
+    <div class="form-group">
+        <div  >
+            @Html.Label(Model.post.Title.ToString())
+        </div>
+        <div>
+            @Html.Label(Model.post.Date.ToShortDateString())
+        </div>
+        <div >
+            @foreach (var categories in Model.Categories)
+            {
+                if (categories.Id==Model.post.Id)
+                {
+                    @Html.Label(categories.Name.ToString())
+                }
+            }
+        </div>
+        <div >
+            @Html.Label(Model.post.Content.ToString())
+        </div>
+    </div >
+    <div >
+        @using (Html.BeginForm("Detail", "Blog", "post"))
+        {
+            @Html.HiddenFor(model => model.comment.Id)
+            @Html.HiddenFor(model => model.post.Id)
+            @Html.HiddenFor(model => model.comment.Date)
+            <div class="form-group">
+                @Html.LabelFor(model => model.comment.Name)
+                @Html.TextBoxFor(model => model.comment.Name, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.comment.Name)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.comment.Text)
+                @Html.TextAreaFor(model => model.comment.Text, 5, 5, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.comment.Text)
+            </div>
+            <div class="form-group">
+                @*@Html.ActionLink("Cancelar", "Index")*@
+                <input class=" btn btn-primary" type="submit" value="Publicar">
+            </div>
+        }
+    </div>
+    <div>
+        <h2>Comentarios</h2>
+        @foreach (var comen in Model.comments)
+        {
+        <table>
+            <tr>
+                <td>
+                    <ul>
+                        <li class="list-inline">@comen.Name.ToString() </li>
+                        <li class="list-inline">@comen.Text.ToString()</li>
+                        </ul>
+                </td>
+            </tr>
+        </table>
+          
+        }
+
+    </div>
+    
+</div>
+

@@ -1,0 +1,43 @@
+﻿@model Blog.Models.PostVM
+@{
+    ViewBag.Title = "Index";
+}
+<div class=" container">
+    <div class="row ">
+        <table class=" table table-hover ">
+            <thead>
+                <tr>
+                    <th>Publicaiones</th>
+                    <th><a href="~/Blog/ManagePost">+ Nuevo post</a></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var posts in Model.Posts)
+                {
+                    foreach (var categories in Model.Categories)
+                    {
+                        if (categories.Id == posts.IdCategory)
+                        {
+                            <tr>
+                                <td>
+                                    <a class="navbar-link" href="~/Blog/Detail?id=@posts.Id">
+                                        <ul>
+                                            <li class="list-inline">@posts.Title: @posts.Content </li">
+                                            <li class="list-inline"> @categories.Name</li>
+                                            <li class="list-inline"> @posts.Date.ToShortDateString()</li">
+                                        </ul>
+                                    </a>
+                                </td>
+                                <td><a href="~/Blog/ManagePost?id=@posts.Id">Edit</a> | <a href="~/Blog/Delete?id=@posts.Id">Delete</a></td>
+
+                            </tr>
+                            break;
+                        }
+
+                    }
+
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
